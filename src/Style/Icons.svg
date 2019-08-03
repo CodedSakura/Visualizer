@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <symbol id="pause" viewBox='0 0 16 16'><path d='M2 1h4v14h-4Z M10 1h4v14h-4Z'/></symbol>
+    <symbol id="play" viewBox='0 0 16 16'><path d='M2 1L14 8L2 15'/></symbol>
+    <symbol id="next" viewBox='0 0 16 16'><path d='M2 1L12 8V1h2V15h-2V8L2 15Z'/></symbol>
+    <symbol id="prev" viewBox='0 0 16 16'><path d='M2 1h2V8L14 1V15L4 8V15h-2Z'/></symbol>
+    <symbol id="vol-mute" viewBox='0 0 32 32'><path d='M4,2L2,4L9,11L8,12L2,12L2,20L8,20L18,30L18,20L21.5,23.5C21,24,20.5,24.5,20,25L20,29C21.4,27.9,22.6,26.75,23.6,25.6L28,30L30,28L25.4,23.4L23.25,21.3L21.5,19.5L20,18L18,16L11,9L4,2Z M18,2L12,8L18,14L18,2Z M20,3L20,7C24.8,11.3,26.1,15.7,24,20L26.2,22.2C30,15.8,27.9,9.4,20,3Z M20,11L20,16L22.3,18.3C23.7,15.9,22.9,13.4,20,11Z'/></symbol>
+    <symbol id="vol-1" viewBox='0 0 32 32'><path d='M2,12h6l10-10V30l-10-10h-6Z M20,11q6,5,0,10Z'/></symbol>
+    <symbol id="vol-2" viewBox='0 0 32 32'><path d='M2,12h6l10-10V30l-10-10h-6Z M20,11q6,5,0,10Z M20,3Q36,16,20,29V25Q30,16,20,7'/></symbol>
+</svg>

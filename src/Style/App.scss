@@ -1,0 +1,309 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto&display=swap");
+
+$surface: #121212;
+$margin: .5rem;
+$breakpoint: 700px;
+$transition: .25s;
+
+$heightMap: (
+    0: 0.00,
+    1: 0.05,
+    2: 0.07,
+    3: 0.08,
+    4: 0.09,
+    6: 0.11,
+    8: 0.12,
+    12: 0.14,
+    16: 0.15,
+    24: 0.16
+);
+
+@mixin elevate($height) {
+  background-color: rgba(white, map-get($heightMap, $height));
+  box-shadow: 0 $height * .5px $height * .5px $height * -.3px black;
+  border-radius: .25rem;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: $surface;
+  color: rgba(white, .80);
+  font-family: 'Roboto', sans-serif;
+}
+
+.icon-cont {
+  width: 2em;
+  height: 2em;
+  .icon {
+    width: 2em;
+    height: 2em;
+    fill: rgba(white, 0.8);
+  }
+}
+
+.hr {
+  height: .125em;
+  margin: .5em -.125em;
+  background-color: rgba(white, .10);
+}
+
+.container {
+  display: flex;
+  flex-flow: column;
+  > * {
+    margin: $margin/2 0;
+    &:first-child   { margin-top: $margin; }
+    &:last-child { margin-bottom: $margin; }
+    > * {
+      margin: 0 $margin/2;
+      &:first-child { margin-left: $margin; }
+      &:last-child { margin-right: $margin; }
+      @media (max-width: $breakpoint) {
+        margin: $margin/2 $margin;
+        &:first-child   { margin-top: 0; }
+        &:last-child { margin-bottom: 0; }
+      }
+    }
+  }
+}
+
+.visualizers {
+  display: flex;
+  > * {
+    width: calc(50% - #{$margin * 1.5});
+    @include elevate(1);
+  }
+  @media (max-width: $breakpoint) {
+    flex-direction: column;
+    > * {
+      width: calc(100% - #{$margin * 2});
+    }
+  }
+}
+
+.list {
+  @include elevate(1);
+  flex: 1 1 250px;
+  overflow-y: auto;
+  padding: 0;
+  min-width: 200px;
+  //noinspection CssUnknownProperty
+  scrollbar-color: rgba(white, 0.08) transparent;
+  min-height: 200px;
+  li {
+    padding: .125rem .25rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    cursor: default;
+    &:hover {
+      background-color: rgba(white, .04);
+    }
+    &:active, &:focus {
+      background-color: rgba(white, .12);
+    }
+    &.selected {
+      background-color: rgba(white, .16);
+    }
+    &:first-child {
+      padding-top: .25rem;
+    }
+    &:last-child {
+      padding-bottom: .25rem;
+    }
+  }
+}
+
+.controller {
+  // height - (width - 3 margins) * 9/16 / 2 - 3 margins
+  $_var1: 9/16 / 2; // two (16:9)
+  height: calc(100vh - #{100vw * $_var1} - #{-3 * $margin * $_var1 + 3 * $margin});
+  flex: 1 0 auto;
+  min-height: 250px;
+  display: flex;
+  &:last-child {
+    margin-bottom: -11px;
+  }
+  @media (max-width: $breakpoint) {
+    min-height: 650px;
+    flex-direction: column;
+  }
+}
+
+.control {
+  overflow-y: auto;
+  //noinspection CssUnknownProperty
+  scrollbar-color: rgba(white, 0.08) transparent;
+  min-height: 220px;
+  flex: 0 1 50%;
+  @include elevate(1);
+  padding: $margin;
+}
+
+.songs li {
+  display: flex;
+  .title {
+    flex: 1 1 auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .duration {
+    flex: 0 0 max-content;
+    margin-left: $margin / 2;
+  }
+  &.custom {
+    border-top: 1px solid rgba(white, .12);
+    & ~ .custom {
+      border-top: none;
+    }
+  }
+}
+
+.flex {
+  display: flex;
+  margin: $margin 0;
+  > * {
+    display: inline-flex;
+    justify-content: center;
+    flex-direction: column;
+    min-width: 2.75em;
+  }
+  :last-child {
+    text-align: right;
+  }
+  &.f-3 > * {
+    text-align: center;
+    flex: 0 0 calc(#{(100% / 3)} - #{$margin * 2});
+    padding: $margin;
+  }
+  &.buttons {
+    $border: 1px solid white;
+    border: $border;
+    border-radius: $margin;
+    cursor: default;
+    user-select: none;
+    > * {
+      &:first-child {
+        border-top-left-radius: $margin;
+        border-bottom-left-radius: $margin;
+      }
+      &:last-child {
+        border-top-right-radius: $margin;
+        border-bottom-right-radius: $margin;
+      }
+      &:not(:last-child) {
+        border-right: $border;
+      }
+      &:hover {
+        background-color: rgba(white, .04);
+      }
+      &:active, &:focus {
+        background-color: rgba(white, .12);
+      }
+      &.selected {
+        background-color: rgba(white, .16);
+      }
+    }
+  }
+}
+
+.controls .icon-cont {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.progress {
+  flex-grow: 1;
+  position: relative;
+  user-select: none;
+  &:before {
+    position: absolute;
+    content: '';
+    background-color: rgba(white, .16);
+    height: .125em;
+    width: 100%;
+    transition: background-color $transition ease;
+  }
+  > span {
+    background-color: rgba(white, .80);
+    height: .125em;
+    position: relative;
+    transition: background-color $transition ease, width .1s ease;
+    &:after {
+      position: absolute;
+      content: '';
+      background-color: white;
+      width: .5em;
+      height: .5em;
+      top: .125em * -1.5;
+      right: .125em * -1.5;
+      border-radius: 50%;
+      transition: background-color $transition ease;
+    }
+
+    &.animated {
+      transition: width .1s linear;
+    }
+  }
+
+  &.suppressed {
+    &:before {
+      background-color: rgba(white, .08);
+    }
+    > span {
+      background-color: rgba(white, .20);
+      &:after {
+        background-color: darken(white, 50%);
+      }
+    }
+  }
+}
+
+.song-title {
+  font-size: 1.3em;
+  overflow: hidden;
+  white-space: nowrap;
+  height: 24px;
+  position: relative;
+}
+
+.looper {
+  position: relative;
+  transition: any 10s linear;
+  width: 100%;
+  > * {
+    padding-right: 40%;
+    display: inline-block;
+  }
+  &.looping > * {
+    animation: loop-title 10s linear infinite;
+  }
+}
+
+@keyframes loop-title {
+  20% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+::-webkit-scrollbar {
+  $_scroll-width: .5em;
+  width: $_scroll-width;
+  height: $_scroll-width;
+  &-track {
+    background: transparent;
+  }
+  &-thumb {
+    background: rgba(white, 0.08);
+    background-clip: padding-box;
+    border-radius: $_scroll-width / 2;
+    border: $_scroll-width / 4 solid transparent;
+    &:hover {
+      background-color: rgba(white, 0.16);
+    }
+  }
+}

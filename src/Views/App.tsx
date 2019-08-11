@@ -38,7 +38,8 @@ interface StorageState {
   volume: number|null,
   volBank: number,
   autoStart: boolean,
-  autoplay: boolean
+  autoplay: boolean,
+  model: Model
 }
 
 interface State {
@@ -68,7 +69,6 @@ class App extends React.Component<{}, State> {
     this.state = {
       refreshCounter: 0,
       songs: [], currentSong: undefined,
-      model: Model.Empty,
       volume: 30,
       ...rest
     };
@@ -87,7 +87,8 @@ class App extends React.Component<{}, State> {
     window.addEventListener("beforeunload", () => {
       const options: StorageState = {
         volume: this.state.volume, volBank: this.volBank,
-        autoStart: this.state.autoStart, autoplay: this.state.autoplay
+        autoStart: this.state.autoStart, autoplay: this.state.autoplay,
+        model: this.state.model
       };
       localStorage.setItem(optionStorage, JSON.stringify(options));
     });
